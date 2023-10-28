@@ -22,6 +22,11 @@ class DetailViewController: UIViewController {
 
     // TODO: Add favorite button action
 
+    @IBAction func didTapFavoriteButton(_ sender: UIButton) {
+        // Set the button's isSelected state to the opposite of it's current value.
+        sender.isSelected = !sender.isSelected
+    }
+    
     var movie: Movie!
 
     override func viewDidLoad() {
