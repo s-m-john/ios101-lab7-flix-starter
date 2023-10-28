@@ -18,13 +18,28 @@ class DetailViewController: UIViewController {
 
     // TODO: Add favorite button outlet
     @IBOutlet weak var favoriteButton: UIButton!
-    
 
     // TODO: Add favorite button action
 
     @IBAction func didTapFavoriteButton(_ sender: UIButton) {
         // Set the button's isSelected state to the opposite of it's current value.
         sender.isSelected = !sender.isSelected
+        
+        // Get the list of favorited movies from UserDefaults, or create an empty array if it doesn't exist
+                var favoritedMovies = UserDefaults.standard.array(forKey: "favoritedMovies") as? [Int] ?? []
+                
+                if sender.isSelected {
+                    // If the button is selected, add the movie's ID to the favoritedMovies list
+                    favoritedMovies.append(movie.id)
+                } else {
+                    // If the button is deselected, remove the movie's ID from the favoritedMovies list
+                    if let index = favoritedMovies.firstIndex(of: movie.id) {
+                        favoritedMovies.remove(at: index)
+                    }
+                }
+                
+                // Save the updated favoritedMovies list to UserDefaults
+                UserDefaults.standard.set(favoritedMovies, forKey: "favoritedMovies")
     }
     
     var movie: Movie!
@@ -35,7 +50,17 @@ class DetailViewController: UIViewController {
         // TODO: Update favorite button selected state
         // Set the button's corner radius to be 1/2  it's width. This will make a square button round.
         favoriteButton.layer.cornerRadius = favoriteButton.frame.width / 2
+        // Function to check and update the favorite button's state
+                func updateFavoriteButtonState() {
+                    if let favoritedMovies = UserDefaults.standard.array(forKey: "favoritedMovies") as? [Int] {
+                        // Check if the current movie's ID is in the favoritedMovies array
+                        let isFavorited = favoritedMovies.contains(movie.id)
 
+                        // Set the button's isSelected state based on whether the movie is favorited
+                        favoriteButton.isSelected = isFavorited
+                    }
+                }
+        updateFavoriteButtonState()
 
 
         // MARK: Style views
