@@ -17,6 +17,8 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var releaseDateLabel: UILabel!
 
     // TODO: Add favorite button outlet
+    @IBOutlet weak var favoriteButton: UIButton!
+    
 
     // TODO: Add favorite button action
 
@@ -26,7 +28,8 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
 
         // TODO: Update favorite button selected state
-
+        // Set the button's corner radius to be 1/2  it's width. This will make a square button round.
+        favoriteButton.layer.cornerRadius = favoriteButton.frame.width / 2
 
 
 
